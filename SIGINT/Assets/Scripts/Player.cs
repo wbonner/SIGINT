@@ -12,7 +12,8 @@ public class Player : MonoBehaviour {
 	public string farLeftKey;
 	public string rightKey;
 	public string farRightKey;
-	
+
+
 	// Update is called once per frame
 	void Update () {
 		//Update movement
@@ -22,30 +23,23 @@ public class Player : MonoBehaviour {
 			this.speed += this.velocity;
 			if(this.speed > this.maxSpeed) this.speed = this.maxSpeed;
 		}
+		if (farLeftKey != "" && Input.GetKey (this.farLeftKey) || 
+		    farRightKey != "" && Input.GetKey (this.farRightKey))
+		{
+			this.speed += this.velocity * 2;
+			if(this.speed > this.maxSpeed) this.speed = this.maxSpeed;
+		}
+		
 		if (this.leftKey != "" && Input.GetKey (this.leftKey)) {
 			gameObject.transform.Translate (Vector3.left * this.speed);
 		} else if (this.rightKey != ""  && Input.GetKey (this.rightKey)) {
 			gameObject.transform.Translate (Vector3.right * this.speed);
+		} else if (this.farRightKey != ""  && Input.GetKey (this.farRightKey)) {
+			gameObject.transform.Translate (Vector3.right * this.speed);
+		} else if (this.farLeftKey != ""  && Input.GetKey (this.farLeftKey)) {
+			gameObject.transform.Translate (Vector3.left * this.speed);
 		} else {
 			this.speed = 0;
 		}
 	}
-	
-//	void OnTriggerEnter(Collider other) {
-//		switch(other.name)
-//		{
-//		case "RightDisable":
-//			Destroy(other.gameObject);
-//			this.rightMoveEnabled = false;
-//			break;
-//		case "RightReenabled":
-//			if(!this.rightMoveEnabled) {
-//				Destroy(other.gameObject);
-//				this.rightMoveEnabled = true;
-//			}
-//			break;
-//		default:
-//			break;
-//		}
-//	}
 }
